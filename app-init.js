@@ -9,7 +9,7 @@
 // ============================================================
 
 const APP_CONFIG = {
-  API_BASE_URL: 'https://script.google.com/macros/s/AKfycby37i8wQ9fz5C7Aw65JmX3-mbe0dmpevaSngOFZVniPJnIFwtG9KFcYVEHBLP-v14_-/exec'
+  API_BASE_URL: 'https://script.google.com/macros/s/AKfycbxKzF37l6Iqmax7Za70tIDQeJ_mw8eXKxZXhEAiL3GiRc2d9zIQS4n_GPcbWo17i1i1/exec'
 };
 
 // ============================================================
