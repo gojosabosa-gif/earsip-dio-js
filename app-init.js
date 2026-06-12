@@ -99,6 +99,7 @@ window.handleLogin = function() {
   var username = document.getElementById('login-username');
   var password = document.getElementById('login-password');
   var errorEl = document.getElementById('login-error');
+  var btn = document.getElementById('btn-login');
   
   if (!username || !password || !errorEl) return;
   
@@ -106,30 +107,34 @@ window.handleLogin = function() {
   var p = password.value;
   
   if (!u || !p) {
-    errorEl.textContent = 'Username dan password wajib diisi';
-    errorEl.classList.remove('hidden');
+    if (errorEl) { errorEl.textContent = 'Username dan password wajib diisi'; errorEl.classList.remove('hidden'); }
     return;
   }
   
   errorEl.classList.add('hidden');
   
   if (!api) {
-    errorEl.textContent = 'Sistem belum siap. Coba refresh.';
+    errorEl.textContent = 'Sistem belum siap. Refresh halaman.';
     errorEl.classList.remove('hidden');
     return;
   }
   
+  if (btn) { btn.disabled = true; btn.textContent = 'Memverifikasi...'; }
+  
   api.login(u, p).then(function(result) {
+    if (btn) { btn.disabled = false; btn.textContent = 'Masuk Sistem'; }
     if (result.success) {
       password.value = '';
-      if (window.APP && window.APP.toast) {
-        window.APP.toast('Login berhasil!', 'success');
-      }
+      errorEl.classList.add('hidden');
       startApp();
     } else {
       errorEl.textContent = result.message || 'Login gagal';
       errorEl.classList.remove('hidden');
     }
+  }).catch(function(err) {
+    if (btn) { btn.disabled = false; btn.textContent = 'Masuk Sistem'; }
+    errorEl.textContent = 'Error: ' + (err.message || 'Gagal terhubung ke server');
+    errorEl.classList.remove('hidden');
   });
 };
 
